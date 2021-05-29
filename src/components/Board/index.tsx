@@ -2,37 +2,39 @@ import React from 'react';
 import { View } from 'react-native';
 import { Directions, FlingGestureHandler } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
-import { darktheme } from '../../data/color';
-import { keygen } from '../../utils/keygen';
 
-import { BoardStyles } from './styles';
 import Tile from './Tile';
 
-class Board extends React.Component {
+import { darktheme } from '../../data/color';
+import { BoardStyles } from './styles';
+
+import Board from '../../game/board';
+import { keygen } from '../../utils/keygen';
+import { store } from '../../redux/store';
+import { saveBoard } from '../../redux/action';
+
+interface ReduxProps {
+    board: Board,
+}
+
+class BoardView extends React.Component<ReduxProps> {
+
+    constructor(props) {
+        super(props);
+
+        if (props.board === null)
+            store.dispatch(saveBoard(new Board(4)));
+    }
+
     render() {
+        console.log(this.props.board);
         return (
-            <FlingGestureHandler
-                direction={Directions.UP}
-                onEnded={() => console.log('up')}
-                numberOfPointers={1}
-            >
-                <FlingGestureHandler
-                    direction={Directions.DOWN}
-                    onEnded={() => console.log('down')}
-                    numberOfPointers={1}
-                >
-                    <FlingGestureHandler
-                        direction={Directions.LEFT}
-                        onEnded={() => console.log('left')}
-                        numberOfPointers={1}
-                    >
-                        <FlingGestureHandler
-                            direction={Directions.RIGHT}
-                            onEnded={() => console.log('right')}
-                            numberOfPointers={1}
-                        >
+            <FlingGestureHandler direction={Directions.UP} onEnded={() => console.log('up')}>
+                <FlingGestureHandler direction={Directions.DOWN} onEnded={() => console.log('down')} >
+                    <FlingGestureHandler direction={Directions.LEFT} onEnded={() => console.log('left')}>
+                        <FlingGestureHandler direction={Directions.RIGHT} onEnded={() => console.log('right')}>
                             <View style={{ ...BoardStyles.root, backgroundColor: darktheme.boardColor }}>
-                                {[[2, 4, 8, 16], [32, 64, 128, 256], [512, 1024, 2048, 4096], [8192, 16384, 32768, 65536]].map(row => {
+                                {this.props.board.board.map(row => {
                                     return (
                                         <View key={keygen()} style={BoardStyles.row}>
                                             {row.map(cell => {
@@ -53,7 +55,7 @@ class Board extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+    board: state.board,
 });
 
-export default connect(mapStateToProps)(Board);
+export default connect(mapStateToProps)(BoardView);

@@ -4,6 +4,7 @@ export const darktheme: ColorSchemeType = {
     bgColor: '#1E1E1E',
     boardColor: '#151515',
     tileColors: {
+        '-1': '#1c1b1b',
         '2': '#a3948b',
         '4': '#c2a899',
         '8': '#dbb49e',

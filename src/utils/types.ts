@@ -29,6 +29,7 @@ export interface ColorSchemeType {
 }
 
 export interface TileColorSchemeType {
+    '-1': string,
     '2': string,
     '4': string,
     '8': string,

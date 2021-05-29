@@ -18,7 +18,7 @@ class Tile extends React.Component<TileProps> {
         return (
             <View style={{ ...TileStyles.root, backgroundColor, height: sides, width: sides }}>
                 <Text style={{ ...TileStyles.text, color: darktheme.textColor }}>
-                    {this.props.number}
+                    {this.props.number === -1 ? '' : this.props.number}
                 </Text>
             </View>
         );

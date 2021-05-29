@@ -3,8 +3,8 @@ import { CoordinatePair, MergingPairs } from "../utils/types";
 
 export default class Board {
 
-    dim: number;
-    board: Array<Array<number>>;
+    dim: number = 0;
+    board: Array<Array<number>> = [];
 
     constructor(dim: number) {
         this.dim = dim;
@@ -16,9 +16,9 @@ export default class Board {
 
             this.board.push(row);
         }
-    }
 
-    getBoard = (): Array<Array<number>> => this.board;
+        this.newTile();
+    }
 
     swipe = (direction: Direction) => {
         // merge all
