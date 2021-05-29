@@ -1,0 +1,12 @@
+{
+  "name": "RN2048",
+  "displayName": "RN2048",
+  "expo": {
+    "name": "RN2048",
+    "slug": "RN2048",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
