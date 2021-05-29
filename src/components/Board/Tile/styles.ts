@@ -8,6 +8,8 @@ export const TileStyles = StyleSheet.create({
         borderRadius: 10,
         display: 'flex',
         justifyContent: 'center',
+        marginHorizontal: 5,
+        marginVertical: 5,
     },
     text: {
         fontSize: 20,

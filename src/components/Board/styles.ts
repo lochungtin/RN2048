@@ -8,15 +8,13 @@ export const BoardStyles = StyleSheet.create({
         borderRadius: 10,
         display: 'flex',
         flexDirection: 'column',
-        height: screenWidth * 0.9,
-        justifyContent: 'space-between',
-        width: screenWidth * 0.9
+        justifyContent: 'center',
+        padding: 5,
     },
     row: {
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: screenWidth * 0.9
+        justifyContent: 'center',
     }
 });

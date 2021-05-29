@@ -11,6 +11,7 @@ class Screen extends React.Component {
     render() {
         return (
             <View style={{ ...ScreenStyles.screen, backgroundColor: darktheme.bgColor }}>
+                <View style={{ height: 200 }} />
                 <Board />
             </View >
         );
