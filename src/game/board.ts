@@ -19,10 +19,10 @@ export default class Board {
             this.board.push(row);
         }
 
-        this.newTile();
+        Board.newTile(this);
     }
 
-    swipe = (direction: Direction): void => {
+    static swipe = (board: Board, direction: Direction): void => {
         // merge all
         // this.getMergableIndices(direction).forEach(pair => {
         //     this.board[pair.mergee.row][pair.mergee.col] += this.board[pair.merger.row][pair.merger.col];
@@ -31,25 +31,26 @@ export default class Board {
         
         // cascade to direction
         console.log(direction);
-        this.board = (cascade(this.board, direction));
+        board.board = cascade(board.board, direction);
+        console.log(board);
 
         // add new tile
-        let newTile = this.newTile();
+        let newTile = Board.newTile(board);
     }
 
-    validate = (): boolean => {
-        for (let i = 0; i < this.dim; ++i) {
-            for (let j = 0; j < this.dim; ++j) {
+    static validate = (board: Board): boolean => {
+        for (let i = 0; i < board.dim; ++i) {
+            for (let j = 0; j < board.dim; ++j) {
                 // board has empty cell
-                if (this.board[i][j] == -1)
+                if (board.board[i][j] == -1)
                     return true;
 
                 // cell can be combined with neighbour
-                let neighbours: Array<CoordinatePair> = this.getNeighbourIndices({ row: i, col: j });
+                let neighbours: Array<CoordinatePair> = Board.getNeighbourIndices(board, { row: i, col: j });
                 for (let k = 0; i < neighbours.length; ++k) {
                     let pair: CoordinatePair = neighbours[i];
 
-                    if (this.board[pair.row][pair.col] == this.board[i][j])
+                    if (board.board[pair.row][pair.col] == board.board[i][j])
                         return true;
                 }
             }
@@ -57,30 +58,30 @@ export default class Board {
         return false;
     }
 
-    private getAvailable = (): Array<number> => {
+    private static getAvailable = (board: Board): Array<number> => {
         let rt: Array<number> = [];
-        this.board.forEach((row, rIndex) => row.forEach((cell, cIndex) => {
+        board.board.forEach((row, rIndex) => row.forEach((cell, cIndex) => {
             if (cell == -1)
-                rt.push(rIndex * this.dim + cIndex);
+                rt.push(rIndex * board.dim + cIndex);
         }));
 
         return rt;
     }
 
-    private getMergableIndices = (direction: Direction): Array<MergingPairs> => {
+    private static getMergableIndices = (board: Board, direction: Direction): Array<MergingPairs> => {
         let rt: Array<MergingPairs> = [];
 
         let openList: Array<number> = [];
-        for (let i = 0; i < this.dim * this.dim; ++i)
+        for (let i = 0; i < board.dim * board.dim; ++i)
             openList.push(i);
 
-        for (let i = 0; i < this.dim; ++i) {
-            for (let j = 0; j < this.dim; ++j) {
+        for (let i = 0; i < board.dim; ++i) {
+            for (let j = 0; j < board.dim; ++j) {
                 // directional ordering
                 let row, col;
                 switch (direction) {
                     case Direction.down:
-                        row = this.dim - i - 2;
+                        row = board.dim - i - 2;
                         col = j;
                         break;
                     case Direction.left:
@@ -89,7 +90,7 @@ export default class Board {
                         break;
                     case Direction.right:
                         row = i;
-                        col = this.dim - j;
+                        col = board.dim - j;
                         break;
                     default:
                         row = i + 1;
@@ -97,13 +98,13 @@ export default class Board {
                 }
 
                 let toBeMerged = [row, col];
-                let tbmNumericIndex = row * this.dim + col;
-                let curNumericIndex = i * this.dim + j;
-                if (!this.isValidIndex(toBeMerged) && !openList.includes(tbmNumericIndex) && !openList.includes(curNumericIndex))
+                let tbmNumericIndex = row * board.dim + col;
+                let curNumericIndex = i * board.dim + j;
+                if (!Board.isValidIndex(board, toBeMerged) && !openList.includes(tbmNumericIndex) && !openList.includes(curNumericIndex))
                     continue;
 
                 // can be merged
-                if (this.board[i][j] === this.board[toBeMerged[0]][toBeMerged[j]]) {
+                if (board.board[i][j] === board.board[toBeMerged[0]][toBeMerged[j]]) {
                     rt.push({
                         mergee: {
                             row: i,
@@ -123,24 +124,24 @@ export default class Board {
         return rt;
     }
 
-    private getNeighbourIndices = (coordinate: CoordinatePair): Array<CoordinatePair> =>
+    private static getNeighbourIndices = (board: Board, coordinate: CoordinatePair): Array<CoordinatePair> =>
         [[0, 1], [0, -1], [-1, 0], [1, 0]]
             .map(pair => [pair[0] + coordinate.row, pair[1] + coordinate.col])
-            .filter(this.isValidIndex)
+            .filter(pair => Board.isValidIndex(board, pair))
             .map(pair => ({ row: pair[0], col: pair[1] }));
 
-    private isValidIndex = (pair: Array<number>): boolean =>
-        pair[0] >= 0 && pair[1] >= 0 && pair[0] < this.dim && pair[1] < this.dim;
+    private static isValidIndex = (board: Board, pair: Array<number>): boolean =>
+        pair[0] >= 0 && pair[1] >= 0 && pair[0] < board.dim && pair[1] < board.dim;
 
-    private newTile = (): Array<number> => {
-        let empty: Array<number> = this.getAvailable();
+    private static newTile = (board: Board): Array<number> => { 
+        let empty: Array<number> = Board.getAvailable(board);
         let selection: number = empty[Math.floor(Math.random() * empty.length)];
 
-        let row: number = Math.floor(selection / this.dim);
-        let col: number = selection % this.dim;
+        let row: number = Math.floor(selection / board.dim);
+        let col: number = selection % board.dim;
         let value: number = (Math.random() > 0.7) ? 4 : 2;
 
-        this.board[row][col] = value;
+        board.board[row][col] = value;
 
         return [row, col, value];
     }

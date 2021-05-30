@@ -29,7 +29,9 @@ class BoardView extends React.Component<ReduxProps> {
     }
 
     swipe = (direction: Direction): void => {
-        
+        let temp = { ...this.props.game };
+        Board.swipe(temp, direction);
+        store.dispatch(saveGameState(temp));
     }
 
     render() {
