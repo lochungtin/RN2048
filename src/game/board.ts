@@ -23,19 +23,13 @@ export default class Board {
     }
 
     static swipe = (board: Board, direction: Direction): void => {
-        // merge all
-        // this.getMergableIndices(direction).forEach(pair => {
-        //     this.board[pair.mergee.row][pair.mergee.col] += this.board[pair.merger.row][pair.merger.col];
-        //     this.board[pair.merger.row][pair.merger.col] = -1;
-        // });
-        
-        // cascade to direction
-        console.log(direction);
-        board.board = cascade(board.board, direction);
         console.log(board);
 
+        // realign to direction after merge
+        board.board = cascade(board.board, direction);
+
         // add new tile
-        let newTile = Board.newTile(board);
+        Board.newTile(board);
     }
 
     static validate = (board: Board): boolean => {
@@ -64,62 +58,6 @@ export default class Board {
             if (cell == -1)
                 rt.push(rIndex * board.dim + cIndex);
         }));
-
-        return rt;
-    }
-
-    private static getMergableIndices = (board: Board, direction: Direction): Array<MergingPairs> => {
-        let rt: Array<MergingPairs> = [];
-
-        let openList: Array<number> = [];
-        for (let i = 0; i < board.dim * board.dim; ++i)
-            openList.push(i);
-
-        for (let i = 0; i < board.dim; ++i) {
-            for (let j = 0; j < board.dim; ++j) {
-                // directional ordering
-                let row, col;
-                switch (direction) {
-                    case Direction.down:
-                        row = board.dim - i - 2;
-                        col = j;
-                        break;
-                    case Direction.left:
-                        row = i;
-                        col = j - 1;
-                        break;
-                    case Direction.right:
-                        row = i;
-                        col = board.dim - j;
-                        break;
-                    default:
-                        row = i + 1;
-                        col = j;
-                }
-
-                let toBeMerged = [row, col];
-                let tbmNumericIndex = row * board.dim + col;
-                let curNumericIndex = i * board.dim + j;
-                if (!Board.isValidIndex(board, toBeMerged) && !openList.includes(tbmNumericIndex) && !openList.includes(curNumericIndex))
-                    continue;
-
-                // can be merged
-                if (board.board[i][j] === board.board[toBeMerged[0]][toBeMerged[j]]) {
-                    rt.push({
-                        mergee: {
-                            row: i,
-                            col: j,
-                        },
-                        merger: {
-                            row: toBeMerged[0],
-                            col: toBeMerged[1],
-                        }
-                    });
-                    openList.splice(openList.indexOf(tbmNumericIndex), 1);
-                    openList.splice(openList.indexOf(curNumericIndex), 1);
-                }
-            }
-        }
 
         return rt;
     }
