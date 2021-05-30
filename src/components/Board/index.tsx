@@ -9,12 +9,14 @@ import { darktheme } from '../../data/color';
 import { BoardStyles } from './styles';
 
 import Board from '../../game/board';
-import { keygen } from '../../utils/keygen';
 import { store } from '../../redux/store';
-import { saveBoard } from '../../redux/action';
+import { saveGameState } from '../../redux/action';
+import { keygen } from '../../utils/keygen';
+import { Direction } from '../../utils/enums';
+import { GameConfig } from '../../utils/types';
 
 interface ReduxProps {
-    board: Board,
+    game: GameConfig
 }
 
 class BoardView extends React.Component<ReduxProps> {
@@ -22,19 +24,22 @@ class BoardView extends React.Component<ReduxProps> {
     constructor(props) {
         super(props);
 
-        if (props.board === null)
-            store.dispatch(saveBoard(new Board(4)));
+        if (props.game === null)
+            store.dispatch(saveGameState({ ...new Board(4) }));
+    }
+
+    swipe = (direction: Direction): void => {
+        
     }
 
     render() {
-        console.log(this.props.board);
         return (
-            <FlingGestureHandler direction={Directions.UP} onEnded={() => console.log('up')}>
-                <FlingGestureHandler direction={Directions.DOWN} onEnded={() => console.log('down')} >
-                    <FlingGestureHandler direction={Directions.LEFT} onEnded={() => console.log('left')}>
-                        <FlingGestureHandler direction={Directions.RIGHT} onEnded={() => console.log('right')}>
+            <FlingGestureHandler direction={Directions.UP} onEnded={() => this.swipe(Direction.up)}>
+                <FlingGestureHandler direction={Directions.DOWN} onEnded={() => this.swipe(Direction.down)} >
+                    <FlingGestureHandler direction={Directions.LEFT} onEnded={() => this.swipe(Direction.left)}>
+                        <FlingGestureHandler direction={Directions.RIGHT} onEnded={() => this.swipe(Direction.right)}>
                             <View style={{ ...BoardStyles.root, backgroundColor: darktheme.boardColor }}>
-                                {this.props.board.board.map(row => {
+                                {this.props.game.board.map(row => {
                                     return (
                                         <View key={keygen()} style={BoardStyles.row}>
                                             {row.map(cell => {
@@ -55,7 +60,7 @@ class BoardView extends React.Component<ReduxProps> {
 }
 
 const mapStateToProps = state => ({
-    board: state.board,
+    game: state.game,
 });
 
 export default connect(mapStateToProps)(BoardView);

@@ -1,11 +1,11 @@
 import Board from '../game/board';
-import { ActionType } from '../utils/types';
+import { ActionType, GameConfig } from '../utils/types';
 
 export enum ActionName {
-    SAVE_BOARD
+    SAVE_GAME_STATE
 }
 
-export const saveBoard = (payload: Board): ActionType => ({
-    type: ActionName.SAVE_BOARD,
+export const saveGameState = (payload: GameConfig): ActionType => ({
+    type: ActionName.SAVE_GAME_STATE,
     payload,
 });

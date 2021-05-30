@@ -11,6 +11,13 @@ export interface MergingPairs {
     merger: CoordinatePair,
 }
 
+// game config
+export interface GameConfig {
+    board: Array<Array<number>>,
+    dim: number,
+    score: number,
+}
+
 // redux types
 export interface ActionType {
     type: ActionName,

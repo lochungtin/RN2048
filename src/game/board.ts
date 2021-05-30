@@ -1,3 +1,4 @@
+import { cascade } from "../utils/array";
 import { Direction } from "../utils/enums";
 import { CoordinatePair, MergingPairs } from "../utils/types";
 
@@ -5,6 +6,7 @@ export default class Board {
 
     dim: number = 0;
     board: Array<Array<number>> = [];
+    score: number = 0;
 
     constructor(dim: number) {
         this.dim = dim;
@@ -20,16 +22,16 @@ export default class Board {
         this.newTile();
     }
 
-    swipe = (direction: Direction) => {
+    swipe = (direction: Direction): void => {
         // merge all
-        this.getMergableIndices(direction).forEach(pair => {
-            this.board[pair.mergee.row][pair.mergee.col] += this.board[pair.merger.row][pair.merger.col];
-            this.board[pair.merger.row][pair.merger.col] = -1;
-        });
+        // this.getMergableIndices(direction).forEach(pair => {
+        //     this.board[pair.mergee.row][pair.mergee.col] += this.board[pair.merger.row][pair.merger.col];
+        //     this.board[pair.merger.row][pair.merger.col] = -1;
+        // });
         
-
         // cascade to direction
-
+        console.log(direction);
+        this.board = (cascade(this.board, direction));
 
         // add new tile
         let newTile = this.newTile();

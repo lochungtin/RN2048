@@ -8,15 +8,18 @@ import { darktheme } from '../data/color';
 import { ScreenStyles } from './styles';
 
 import Board from '../game/board';
-import { saveBoard } from '../redux/action';
+import { saveGameState } from '../redux/action';
 import { store } from '../redux/store';
 
 class Screen extends React.Component {
+
+    newGame = () => store.dispatch(saveGameState({ ...new Board(4) }));
+
     render() {
         return (
             <View style={{ ...ScreenStyles.screen, backgroundColor: darktheme.bgColor }}>
                 <View style={{ height: 200 }} />
-                <TouchableOpacity onPress={() => store.dispatch(saveBoard(new Board(4)))} style={{ backgroundColor: darktheme.btnColor }}>
+                <TouchableOpacity onPress={this.newGame} style={{ backgroundColor: darktheme.btnColor }}>
                     <Text style={{ color: darktheme.textColor }}>
                         New Game
                     </Text>
