@@ -10,7 +10,7 @@ import { BoardStyles } from './styles';
 
 import Board from '../../game/board';
 import { store } from '../../redux/store';
-import { saveGameState } from '../../redux/action';
+import { updateGame, updateHistory } from '../../redux/action';
 import { keygen } from '../../utils/keygen';
 import { Direction } from '../../utils/enums';
 import { GameConfig } from '../../utils/types';
@@ -21,19 +21,22 @@ interface ReduxProps {
 
 class BoardView extends React.Component<ReduxProps> {
 
-    constructor(props) {
-        super(props);
-
-        if (props.game === null)
-            store.dispatch(saveGameState({ ...new Board(4) }));
-    }
-
     swipe = (direction: Direction): void => {
         let temp = { ...this.props.game };
+        // update history
+        store.dispatch(updateHistory({ ...temp }));
+        console.log(temp);
+
+        // perform swipe
         Board.swipe(temp, direction);
+
+        // validate board
         if (!Board.validate(temp))
-            console.log('e')
-        store.dispatch(saveGameState(temp));
+            console.log('e');
+
+        // save game config
+        store.dispatch(updateGame(temp));
+        console.log(temp);
     }
 
     render() {

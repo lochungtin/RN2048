@@ -10,7 +10,7 @@ import { darktheme } from '../data/color';
 import { MainStyles, ScreenStyles } from './styles';
 
 import Board from '../game/board';
-import { saveGameState } from '../redux/action';
+import { updateGame, updateHistory } from '../redux/action';
 import { store } from '../redux/store';
 import { GameConfig } from '../utils/types';
 
@@ -20,11 +20,30 @@ interface NavProps {
 
 interface ReduxProps {
     game: GameConfig,
+    history: GameConfig,
 }
 
 class Screen extends React.Component<NavProps & ReduxProps> {
 
-    newGame = () => store.dispatch(saveGameState({ ...new Board(4) }));
+    constructor(props) {
+        super(props);
+
+        if (props.game === null)
+            store.dispatch(updateGame({ ...new Board(4) }));
+    }
+
+    back = () => {
+        if (this.props.history !== null) {
+            let curGame = { ...this.props.game };
+            store.dispatch(updateGame(this.props.history));
+            store.dispatch(updateHistory(curGame));
+        }
+    }
+
+    newGame = () => {
+        store.dispatch(updateGame({ ...new Board(4) }));
+        store.dispatch(updateHistory(null));
+    }
 
     render() {
         return (
@@ -52,7 +71,7 @@ class Screen extends React.Component<NavProps & ReduxProps> {
                 </View>
                 <View style={MainStyles.functionBarOuter}>
                     <View style={MainStyles.functionBar}>
-                        <TouchableOpacity onPress={() => { }}>
+                        <TouchableOpacity onPress={this.back}>
                             <Icon color={darktheme.btnColor} name='backup-restore' size={40} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.newGame}>
@@ -74,6 +93,7 @@ class Screen extends React.Component<NavProps & ReduxProps> {
 
 const mapStateToProps = state => ({
     game: state.game,
+    history: state.history,
 });
 
 export default connect(mapStateToProps)(Screen);

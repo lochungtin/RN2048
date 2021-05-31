@@ -4,6 +4,9 @@ import { ActionName } from './action';
 
 import { ActionType, GameConfig, RecordType } from '../utils/types';
 
+const saveHistory = (board: GameConfig = null, action: ActionType) => 
+    action.type === ActionName.SAVE_HISTORY ? action.payload : board;
+
 const saveGame = (board: GameConfig = null, action: ActionType) => 
     action.type === ActionName.SAVE_GAME_STATE ? action.payload : board;
 
@@ -12,5 +15,6 @@ const saveRecords = (records: Array<RecordType> = [], action: ActionType) =>
 
 export default combineReducers({
     game: saveGame,
+    history: saveHistory,
     records: saveRecords,
 })

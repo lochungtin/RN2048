@@ -10,6 +10,7 @@ export default class Board {
 
     constructor(dim: number) {
         this.dim = dim;
+        this.score = 0;
 
         for (let i = 0; i < dim; ++i) {
             let row = [];
