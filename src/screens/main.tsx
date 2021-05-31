@@ -30,11 +30,11 @@ class Screen extends React.Component<NavProps & ReduxProps> {
         return (
             <View style={{ ...ScreenStyles.screen, backgroundColor: darktheme.bgColor }}>
                 <Text style={{ ...MainStyles.titleText, color: darktheme.textColor }}>
-                    2  0  4  8
+                    <Text style={{ color: darktheme.accentColor }}>2</Text>  0  4  8
                 </Text>
                 <View style={MainStyles.scoreBar}>
                     <View style={{ ...MainStyles.scoreContainer, backgroundColor: darktheme.textboxColor }}>
-                        <Text style={{ ...MainStyles.scoreLabelText, color: darktheme.textColor }}>
+                        <Text style={{ ...MainStyles.scoreLabelText, color: darktheme.accentColor }}>
                             Score
                         </Text>
                         <Text style={{ ...MainStyles.scoreText, color: darktheme.textColor }}>
@@ -42,7 +42,7 @@ class Screen extends React.Component<NavProps & ReduxProps> {
                         </Text>
                     </View>
                     <View style={{ ...MainStyles.scoreContainer, backgroundColor: darktheme.textboxColor }}>
-                        <Text style={{ ...MainStyles.scoreLabelText, color: darktheme.textColor }}>
+                        <Text style={{ ...MainStyles.scoreLabelText, color: darktheme.accentColor }}>
                             High Score
                         </Text>
                         <Text style={{ ...MainStyles.scoreText, color: darktheme.textColor }}>
@@ -62,7 +62,7 @@ class Screen extends React.Component<NavProps & ReduxProps> {
                             <Icon color={darktheme.btnColor} name='lightbulb-outline' size={40} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Records')}>
-                            <Icon color={darktheme.btnColor} name='text-box-outline' size={40} />
+                            <Icon color={darktheme.accentColor} name='text-box-outline' size={40} />
                         </TouchableOpacity>
                     </View>
                 </View>
