@@ -2,46 +2,32 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 const screenWidth = Dimensions.get('screen').width;
 
-export const BoardStyles = StyleSheet.create({
-    root: {
-        alignItems: 'center',
-        borderRadius: 10,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: 5,
-    },
-    row: {
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    gameoverModalRoot: {
+export const ModalStyles = StyleSheet.create({
+    modalRoot: {
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: 300,
     },
-    gameoverText: {
+    text: {
         fontSize: 20,
     },
-    gameoverStatsContainer: {
+    statsContainer: {
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: 70,
     },
-    gameoverStatsRow: {
+    statsRow: {
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: screenWidth * 0.7
     },
-    gameoverOptionBar: {
+    optionBar: {
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'row',
