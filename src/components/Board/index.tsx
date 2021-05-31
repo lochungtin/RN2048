@@ -11,13 +11,14 @@ import { BoardStyles } from './styles';
 
 import Board from '../../game/board';
 import { store } from '../../redux/store';
-import { updateGame, updateHistory } from '../../redux/action';
+import { updateGame, updateHistory, updateRecords } from '../../redux/action';
 import { keygen } from '../../utils/keygen';
 import { Direction } from '../../utils/enums';
-import { GameConfig } from '../../utils/types';
+import { GameConfig, RecordType } from '../../utils/types';
 
 interface ReduxProps {
-    game: GameConfig
+    game: GameConfig,
+    records: Array<RecordType>
 }
 
 class BoardView extends React.Component<ReduxProps> {
@@ -38,10 +39,17 @@ class BoardView extends React.Component<ReduxProps> {
 
     onNewGame = () => {
         store.dispatch(updateGame({ ...new Board(4) }));
+        store.dispatch(updateHistory(null));
         this.setState({ open: false });
     }
 
     onSaveGame = () => {
+        let records = [...this.props.records, { highestTile: this.getHighestTile(), score: this.props.game.score }];
+        records.sort((a, b) => (b.highestTile + b.score) - (a.highestTile + a.score));
+
+        store.dispatch(updateRecords(records));
+        store.dispatch(updateGame({ ...new Board(4) }));
+        store.dispatch(updateHistory(null));
         this.setState({ open: false });
     }
 
@@ -100,6 +108,7 @@ class BoardView extends React.Component<ReduxProps> {
 
 const mapStateToProps = state => ({
     game: state.game,
+    records: state.records,
 });
 
 export default connect(mapStateToProps)(BoardView);

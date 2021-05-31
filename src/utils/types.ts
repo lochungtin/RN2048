@@ -48,6 +48,6 @@ export interface TileColorSchemeType {
 
 // game records
 export interface RecordType {
-    topTile: number,
+    highestTile: number,
     score: number,
 }
