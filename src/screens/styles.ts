@@ -56,3 +56,40 @@ export const MainStyles = StyleSheet.create({
         width: screenWidth * 0.6,
     },
 });
+
+export const RecordStyles = StyleSheet.create({
+    topBar: {
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 20,
+        width: screenWidth * 0.9,
+    },
+    titleText: {
+        fontSize: 25
+    },
+    recordBar: {
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 10,
+        width: screenWidth * 0.8,
+    },
+    separatorLine: {
+        height: 2,
+        margin: 20,
+        width: screenWidth * 0.9,
+    },
+    recordRankText: {
+        width: 70,
+    },
+    recordNumberText: {
+        textAlign: 'right',
+        width: 130,
+    },
+    recordText: {
+        fontSize: 17,
+    }
+});

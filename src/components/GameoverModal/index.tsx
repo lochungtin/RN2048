@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, } from 'react-native';
+import { Text, TouchableOpacity, View, } from 'react-native';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 

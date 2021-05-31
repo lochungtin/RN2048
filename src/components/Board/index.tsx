@@ -24,7 +24,7 @@ interface ReduxProps {
 class BoardView extends React.Component<ReduxProps> {
 
     state = {
-        open: true,
+        open: false,
     }
 
     getHighestTile = (): number => {

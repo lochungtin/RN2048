@@ -12,7 +12,7 @@ import { MainStyles, ScreenStyles } from './styles';
 import Board from '../game/board';
 import { updateGame, updateHistory } from '../redux/action';
 import { store } from '../redux/store';
-import { GameConfig } from '../utils/types';
+import { GameConfig, RecordType } from '../utils/types';
 
 interface NavProps {
     navigation: StackNavigationProp<any, any>,
@@ -21,6 +21,7 @@ interface NavProps {
 interface ReduxProps {
     game: GameConfig,
     history: GameConfig,
+    records: Array<RecordType>
 }
 
 class Screen extends React.Component<NavProps & ReduxProps> {
@@ -65,7 +66,7 @@ class Screen extends React.Component<NavProps & ReduxProps> {
                             High Score
                         </Text>
                         <Text style={{ ...MainStyles.scoreText, color: darktheme.textColor }}>
-                            {10000}
+                            {this.props.records[0].score}
                         </Text>
                     </View>
                 </View>
@@ -94,6 +95,7 @@ class Screen extends React.Component<NavProps & ReduxProps> {
 const mapStateToProps = state => ({
     game: state.game,
     history: state.history,
+    records: state.records,
 });
 
 export default connect(mapStateToProps)(Screen);
