@@ -6,19 +6,20 @@ import { connect } from 'react-redux';
 
 import BoardView from '../components/Board';
 
-import { darktheme } from '../data/color';
-import { MainStyles, ScreenStyles } from './styles';
+import { darktheme, lighttheme } from '../data/color';
+import { MainStyles, ScreenStyles, } from './styles';
 
 import Board from '../game/board';
-import { updateGame, updateHistory } from '../redux/action';
+import { updateColors, updateGame, updateHistory } from '../redux/action';
 import { store } from '../redux/store';
-import { GameConfig, RecordType } from '../utils/types';
+import { ColorSchemeType, GameConfig, RecordType, } from '../utils/types';
 
 interface NavProps {
     navigation: StackNavigationProp<any, any>,
 }
 
 interface ReduxProps {
+    colortheme: ColorSchemeType,
     game: GameConfig,
     history: GameConfig,
     records: Array<RecordType>
@@ -46,43 +47,47 @@ class Screen extends React.Component<NavProps & ReduxProps> {
         store.dispatch(updateHistory(null));
     }
 
+    toggleTheme = () => {
+        store.dispatch(updateColors(this.props.colortheme.name === 'dark' ? lighttheme : darktheme))
+    }
+
     render() {
         return (
-            <View style={{ ...ScreenStyles.screen, backgroundColor: darktheme.bgColor }}>
-                <Text style={{ ...MainStyles.titleText, color: darktheme.textColor }}>
-                    <Text style={{ color: darktheme.accentColor }}>2</Text>  0  4  8
+            <View style={{ ...ScreenStyles.screen, backgroundColor: this.props.colortheme.bgColor }}>
+                <Text style={{ ...MainStyles.titleText, color: this.props.colortheme.textColor }}>
+                    <Text style={{ color: this.props.colortheme.accentColor }}>2</Text>  0  4  8
                 </Text>
                 <View style={MainStyles.scoreBar}>
-                    <View style={{ ...MainStyles.scoreContainer, backgroundColor: darktheme.textboxColor }}>
-                        <Text style={{ ...MainStyles.scoreLabelText, color: darktheme.accentColor }}>
+                    <View style={{ ...MainStyles.scoreContainer, backgroundColor: this.props.colortheme.textboxColor }}>
+                        <Text style={{ ...MainStyles.scoreLabelText, color: this.props.colortheme.accentColor }}>
                             Score
                         </Text>
-                        <Text style={{ ...MainStyles.scoreText, color: darktheme.textColor }}>
+                        <Text style={{ ...MainStyles.scoreText, color: this.props.colortheme.textColor }}>
                             {this.props.game.score}
                         </Text>
                     </View>
-                    <View style={{ ...MainStyles.scoreContainer, backgroundColor: darktheme.textboxColor }}>
-                        <Text style={{ ...MainStyles.scoreLabelText, color: darktheme.accentColor }}>
+                    <View style={{ ...MainStyles.scoreContainer, backgroundColor: this.props.colortheme.textboxColor }}>
+                        <Text style={{ ...MainStyles.scoreLabelText, color: this.props.colortheme.accentColor }}>
                             High Score
                         </Text>
-                        <Text style={{ ...MainStyles.scoreText, color: darktheme.textColor }}>
-                            {this.props.records[0].score}
+                        <Text style={{ ...MainStyles.scoreText, color: this.props.colortheme.textColor }}>
+                            {this.props.records.length === 0 ? 0 : this.props.records[0].score}
                         </Text>
                     </View>
                 </View>
                 <View style={MainStyles.functionBarOuter}>
                     <View style={MainStyles.functionBar}>
                         <TouchableOpacity onPress={this.back}>
-                            <Icon color={darktheme.btnColor} name='backup-restore' size={40} />
+                            <Icon color={this.props.colortheme.btnColor} name='backup-restore' size={40} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.newGame}>
-                            <Icon color={darktheme.btnColor} name='sync' size={40} />
+                            <Icon color={this.props.colortheme.btnColor} name='sync' size={40} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => { }}>
-                            <Icon color={darktheme.btnColor} name='lightbulb-outline' size={40} />
+                        <TouchableOpacity onPress={this.toggleTheme}>
+                            <Icon color={this.props.colortheme.btnColor} name='lightbulb-outline' size={40} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Records')}>
-                            <Icon color={darktheme.accentColor} name='text-box-outline' size={40} />
+                            <Icon color={this.props.colortheme.accentColor} name='text-box-outline' size={40} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -93,6 +98,7 @@ class Screen extends React.Component<NavProps & ReduxProps> {
 }
 
 const mapStateToProps = state => ({
+    colortheme: state.colortheme,
     game: state.game,
     history: state.history,
     records: state.records,

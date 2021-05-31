@@ -21,6 +21,7 @@ export interface ActionType {
 
 // color types
 export interface ColorSchemeType {
+    name: string,
     bgColor: string,
     boardColor: string,
     tileColors: TileColorSchemeType,

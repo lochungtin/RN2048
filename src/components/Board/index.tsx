@@ -1,22 +1,22 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Directions, FlingGestureHandler } from 'react-native-gesture-handler';
+import { Directions, FlingGestureHandler, } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 
 import GameoverModal from '../GameoverModal';
 import Tile from './Tile';
 
-import { darktheme } from '../../data/color';
 import { BoardStyles } from './styles';
 
 import Board from '../../game/board';
 import { store } from '../../redux/store';
-import { updateGame, updateHistory, updateRecords } from '../../redux/action';
+import { updateGame, updateHistory, updateRecords, } from '../../redux/action';
 import { keygen } from '../../utils/keygen';
 import { Direction } from '../../utils/enums';
-import { GameConfig, RecordType } from '../../utils/types';
+import { ColorSchemeType, GameConfig, RecordType, } from '../../utils/types';
 
 interface ReduxProps {
+    colortheme: ColorSchemeType,
     game: GameConfig,
     records: Array<RecordType>
 }
@@ -77,7 +77,7 @@ class BoardView extends React.Component<ReduxProps> {
                     <FlingGestureHandler direction={Directions.DOWN} onEnded={() => this.swipe(Direction.down)} >
                         <FlingGestureHandler direction={Directions.LEFT} onEnded={() => this.swipe(Direction.left)}>
                             <FlingGestureHandler direction={Directions.RIGHT} onEnded={() => this.swipe(Direction.right)}>
-                                <View style={{ ...BoardStyles.root, backgroundColor: darktheme.boardColor }}>
+                                <View style={{ ...BoardStyles.root, backgroundColor: this.props.colortheme.boardColor }}>
                                     {this.props.game.board.map(row => {
                                         return (
                                             <View key={keygen()} style={BoardStyles.row}>
@@ -107,6 +107,7 @@ class BoardView extends React.Component<ReduxProps> {
 }
 
 const mapStateToProps = state => ({
+    colortheme: state.colortheme,
     game: state.game,
     records: state.records,
 });

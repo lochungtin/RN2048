@@ -3,10 +3,13 @@ import { Text, TouchableOpacity, View, } from 'react-native';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 
-import { darktheme } from '../../data/color';
 import { ModalStyles } from './styles';
 
-import { GameConfig } from '../../utils/types';
+import { ColorSchemeType } from '../../utils/types';
+
+interface ReduxProps {
+    colortheme: ColorSchemeType,
+}
 
 interface ModalProps {
     onSaveGame: () => void,
@@ -16,7 +19,7 @@ interface ModalProps {
     open: boolean,
 }
 
-class BoardView extends React.Component<ModalProps> {
+class BoardView extends React.Component<ReduxProps & ModalProps> {
 
     render() {
         return (
@@ -25,35 +28,35 @@ class BoardView extends React.Component<ModalProps> {
                 isVisible={this.props.open}
             >
                 <View style={ModalStyles.modalRoot}>
-                    <Text style={{ ...ModalStyles.text, color: darktheme.textColor }}>
-                        <Text style={{ color: darktheme.accentColor }}>G  A  M  E</Text>  O  V  E  R
+                    <Text style={{ ...ModalStyles.text, color: this.props.colortheme.textColor }}>
+                        <Text style={{ color: this.props.colortheme.accentColor }}>G  A  M  E</Text>  O  V  E  R
                         </Text>
                     <View style={ModalStyles.statsContainer}>
                         <View style={ModalStyles.statsRow}>
-                            <Text style={{ ...ModalStyles.text, color: darktheme.accentColor }}>
+                            <Text style={{ ...ModalStyles.text, color: this.props.colortheme.accentColor }}>
                                 Score :
                             </Text>
-                            <Text style={{ ...ModalStyles.text, color: darktheme.textColor }}>
+                            <Text style={{ ...ModalStyles.text, color: this.props.colortheme.textColor }}>
                                 {this.props.score}
                             </Text>
                         </View>
                         <View style={ModalStyles.statsRow}>
-                            <Text style={{ ...ModalStyles.text, color: darktheme.accentColor }}>
+                            <Text style={{ ...ModalStyles.text, color: this.props.colortheme.accentColor }}>
                                 Highest Tile :
                             </Text>
-                            <Text style={{ ...ModalStyles.text, color: darktheme.textColor }}>
+                            <Text style={{ ...ModalStyles.text, color: this.props.colortheme.textColor }}>
                                 {this.props.highestTile}
                             </Text>
                         </View>
                     </View>
                     <View style={ModalStyles.optionBar}>
                         <TouchableOpacity onPress={this.props.onSaveGame}>
-                            <Text style={{ ...ModalStyles.text, color: darktheme.accentColor }}>
+                            <Text style={{ ...ModalStyles.text, color: this.props.colortheme.accentColor }}>
                                 SAVE RECORD
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.props.onNewGame}>
-                            <Text style={{ ...ModalStyles.text, color: darktheme.textColor }}>
+                            <Text style={{ ...ModalStyles.text, color: this.props.colortheme.textColor }}>
                                 NEW GAME
                             </Text>
                         </TouchableOpacity>
@@ -65,7 +68,7 @@ class BoardView extends React.Component<ModalProps> {
 }
 
 const mapStateToProps = state => ({
-
+    colortheme: state.colortheme
 });
 
 export default connect(mapStateToProps)(BoardView);
