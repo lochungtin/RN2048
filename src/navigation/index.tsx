@@ -14,7 +14,7 @@ class AppNav extends React.Component {
         return (
             <NavigationContainer>
                 <StatusBar backgroundColor={'#0E0E0E'} />
-                <Root.Navigator>
+                <Root.Navigator screenOptions={{ headerShown: false }}>
                     <Root.Screen component={Main} name='Main' />
                     <Root.Screen component={Records} name='Records' />
                 </Root.Navigator>

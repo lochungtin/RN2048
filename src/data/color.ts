@@ -19,7 +19,7 @@ export const darktheme: ColorSchemeType = {
         large: '#3d3934',
     },
     textColor: '#E0E0E0',
-    textboxColor: '#3E3E3E',
+    textboxColor: '#272727',
     btnColor: '#A0A0A0',
     accentColor: '#EB864D'
 }
