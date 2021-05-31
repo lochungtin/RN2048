@@ -12,12 +12,17 @@ import { MainStyles, ScreenStyles } from './styles';
 import Board from '../game/board';
 import { saveGameState } from '../redux/action';
 import { store } from '../redux/store';
+import { GameConfig } from '../utils/types';
 
 interface NavProps {
-    navigation: StackNavigationProp<any, any>
+    navigation: StackNavigationProp<any, any>,
 }
 
-class Screen extends React.Component<NavProps> {
+interface ReduxProps {
+    game: GameConfig,
+}
+
+class Screen extends React.Component<NavProps & ReduxProps> {
 
     newGame = () => store.dispatch(saveGameState({ ...new Board(4) }));
 
@@ -33,7 +38,7 @@ class Screen extends React.Component<NavProps> {
                             Score
                         </Text>
                         <Text style={{ ...MainStyles.scoreText, color: darktheme.textColor }}>
-                            {10000}
+                            {this.props.game.score}
                         </Text>
                     </View>
                     <View style={{ ...MainStyles.scoreContainer, backgroundColor: darktheme.textboxColor }}>
@@ -68,7 +73,7 @@ class Screen extends React.Component<NavProps> {
 }
 
 const mapStateToProps = state => ({
-
+    game: state.game,
 });
 
 export default connect(mapStateToProps)(Screen);

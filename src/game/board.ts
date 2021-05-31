@@ -23,7 +23,9 @@ export default class Board {
     }
 
     static swipe = (board: Board, direction: Direction): void => {
-        board.board = cascade(board.board, direction);
+        let temp = cascade(board.board, direction);
+        board.board = temp.board;
+        board.score += temp.score;
         Board.newTile(board);
     }
 
