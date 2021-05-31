@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, } from 'react-native';
 import { connect } from 'react-redux';
 
+import { screenWidth, TileStyles, } from './styles';
+
 import { ColorSchemeType } from '../../../utils/types';
-import { screenWidth, TileStyles } from './styles';
 
 interface ReduxProps {
     colortheme: ColorSchemeType,

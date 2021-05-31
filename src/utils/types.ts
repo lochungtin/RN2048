@@ -16,7 +16,7 @@ export interface GameConfig {
 // redux types
 export interface ActionType {
     type: ActionName,
-    payload?: any
+    payload?: any,
 }
 
 // color types

@@ -1,13 +1,13 @@
-import { StackNavigationProp } from '@react-navigation/stack'
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { ScrollView, Text, TouchableOpacity, View, } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
-import { RecordStyles, ScreenStyles } from './styles';
+import { RecordStyles, ScreenStyles, } from './styles';
 
 import { keygen } from '../utils/keygen';
-import { ColorSchemeType, RecordType } from '../utils/types';
+import { ColorSchemeType, RecordType, } from '../utils/types';
 
 interface NavProps {
     navigation: StackNavigationProp<any, any>,
@@ -15,7 +15,7 @@ interface NavProps {
 
 interface ReduxProps {
     colortheme: ColorSchemeType,
-    records: Array<RecordType>
+    records: Array<RecordType>,
 }
 
 class Screen extends React.Component<NavProps & ReduxProps> {

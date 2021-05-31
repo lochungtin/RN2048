@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, } from 'react-native';
 
 export const screenWidth = Dimensions.get('screen').width;
 
@@ -13,5 +13,5 @@ export const TileStyles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-    }
+    },
 });

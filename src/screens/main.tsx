@@ -1,4 +1,4 @@
-import { StackNavigationProp } from '@react-navigation/stack'
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { TouchableOpacity, Text, View, } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 
 import BoardView from '../components/Board';
 
-import { darktheme, lighttheme } from '../data/color';
+import { darktheme, lighttheme, } from '../data/color';
 import { MainStyles, ScreenStyles, } from './styles';
 
 import Board from '../game/board';
-import { updateColors, updateGame, updateHistory } from '../redux/action';
+import { updateColors, updateGame, updateHistory, } from '../redux/action';
 import { store } from '../redux/store';
 import { ColorSchemeType, GameConfig, RecordType, } from '../utils/types';
 
@@ -22,7 +22,7 @@ interface ReduxProps {
     colortheme: ColorSchemeType,
     game: GameConfig,
     history: GameConfig,
-    records: Array<RecordType>
+    records: Array<RecordType>,
 }
 
 class Screen extends React.Component<NavProps & ReduxProps> {
@@ -47,9 +47,7 @@ class Screen extends React.Component<NavProps & ReduxProps> {
         store.dispatch(updateHistory(null));
     }
 
-    toggleTheme = () => {
-        store.dispatch(updateColors(this.props.colortheme.name === 'dark' ? lighttheme : darktheme))
-    }
+    toggleTheme = () => store.dispatch(updateColors(this.props.colortheme.name === 'dark' ? lighttheme : darktheme));
 
     render() {
         return (

@@ -24,10 +24,10 @@ export const darktheme: ColorSchemeType = {
     textColor: '#E0E0E0',
     textboxColor: '#272727',
     btnColor: '#A0A0A0',
-    accentColor: '#EB864D'
+    accentColor: '#EB864D',
 }
 
-export const light: ColorSchemeType = {
+export const lighttheme: ColorSchemeType = {
     name: 'light',
     bgColor: '#EFEFEF',
     boardColor: '#CFCFCF',
@@ -39,5 +39,5 @@ export const light: ColorSchemeType = {
     textColor: '#0F0F0F',
     textboxColor: '#CFCFCF',
     btnColor: '#4F4F4F',
-    accentColor: '#EB864D'
+    accentColor: '#EB864D',
 }

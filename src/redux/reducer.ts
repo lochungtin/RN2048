@@ -2,8 +2,9 @@ import { combineReducers } from 'redux';
 
 import { ActionName } from './action';
 
-import { ActionType, ColorSchemeType, GameConfig, RecordType } from '../utils/types';
 import { darktheme } from '../data/color';
+
+import { ActionType, ColorSchemeType, GameConfig, RecordType, } from '../utils/types';
 
 const saveColors = (theme: ColorSchemeType = darktheme, action: ActionType) => 
     action.type === ActionName.SAVE_COLOR_CONFIG ? action.payload : theme;
@@ -22,4 +23,4 @@ export default combineReducers({
     game: saveGame,
     history: saveHistory,
     records: saveRecords,
-})
+});

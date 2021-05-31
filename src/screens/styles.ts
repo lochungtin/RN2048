@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, } from 'react-native';
 
 export const screenWidth = Dimensions.get('screen').width;
 
@@ -91,5 +91,5 @@ export const RecordStyles = StyleSheet.create({
     },
     recordText: {
         fontSize: 17,
-    }
+    },
 });

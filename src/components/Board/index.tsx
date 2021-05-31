@@ -18,7 +18,7 @@ import { ColorSchemeType, GameConfig, RecordType, } from '../../utils/types';
 interface ReduxProps {
     colortheme: ColorSchemeType,
     game: GameConfig,
-    records: Array<RecordType>
+    records: Array<RecordType>,
 }
 
 class BoardView extends React.Component<ReduxProps> {
