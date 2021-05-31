@@ -1,6 +1,6 @@
 import { cascade } from "../utils/array";
 import { Direction } from "../utils/enums";
-import { CoordinatePair, MergingPairs } from "../utils/types";
+import { CoordinatePair } from "../utils/types";
 
 export default class Board {
 
@@ -23,12 +23,7 @@ export default class Board {
     }
 
     static swipe = (board: Board, direction: Direction): void => {
-        console.log(board);
-
-        // realign to direction after merge
         board.board = cascade(board.board, direction);
-
-        // add new tile
         Board.newTile(board);
     }
 
@@ -41,8 +36,8 @@ export default class Board {
 
                 // cell can be combined with neighbour
                 let neighbours: Array<CoordinatePair> = Board.getNeighbourIndices(board, { row: i, col: j });
-                for (let k = 0; i < neighbours.length; ++k) {
-                    let pair: CoordinatePair = neighbours[i];
+                for (let k = 0; k < neighbours.length; ++k) {
+                    let pair: CoordinatePair = neighbours[k];
 
                     if (board.board[pair.row][pair.col] == board.board[i][j])
                         return true;
@@ -71,8 +66,11 @@ export default class Board {
     private static isValidIndex = (board: Board, pair: Array<number>): boolean =>
         pair[0] >= 0 && pair[1] >= 0 && pair[0] < board.dim && pair[1] < board.dim;
 
-    private static newTile = (board: Board): Array<number> => { 
+    private static newTile = (board: Board): void => { 
         let empty: Array<number> = Board.getAvailable(board);
+        if (empty.length === 0)
+            return;
+
         let selection: number = empty[Math.floor(Math.random() * empty.length)];
 
         let row: number = Math.floor(selection / board.dim);
@@ -80,7 +78,5 @@ export default class Board {
         let value: number = (Math.random() > 0.7) ? 4 : 2;
 
         board.board[row][col] = value;
-
-        return [row, col, value];
     }
 }
