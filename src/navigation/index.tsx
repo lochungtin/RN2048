@@ -5,7 +5,7 @@ import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
 import Main from '../screens/main';
-import Leaderboard from '../screens/leaderboard';
+import Records from '../screens/records';
 
 const Root = createStackNavigator();
 
@@ -16,7 +16,7 @@ class AppNav extends React.Component {
                 <StatusBar backgroundColor={'#0E0E0E'} />
                 <Root.Navigator>
                     <Root.Screen component={Main} name='Main' />
-                    <Root.Screen component={Leaderboard} name='Leaderboard' />
+                    <Root.Screen component={Records} name='Records' />
                 </Root.Navigator>
             </NavigationContainer>
         );

@@ -6,11 +6,6 @@ export interface CoordinatePair {
     col: number;
 }
 
-export interface MergingPairs {
-    mergee: CoordinatePair,
-    merger: CoordinatePair,
-}
-
 // game config
 export interface GameConfig {
     board: Array<Array<number>>,
@@ -49,4 +44,10 @@ export interface TileColorSchemeType {
     '1024': string,
     '2048': string,
     large: string,
+}
+
+// game records
+export interface RecordType {
+    topTile: number,
+    score: number,
 }
