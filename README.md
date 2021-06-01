@@ -42,4 +42,4 @@ As of now, there are no plans to maintain nor further develop this project, as t
 
 Although there is no incentive to do so, the way the app is coded is prepared for further expansion, such as different sized boards. The algorithms were developed to be able to handle boards of all sizes. Adding new screens to accomodate for board size selection would also be easy as screen components are extracted and abstracted from the navigator itself.
 
-But for those curious people out there who wishes to give it a test, a release .apk is attached in the release page of this repo.
+But for those curious people out there who wishes to give it a test, a release .apk is <a href='https://github.com/lochungtin/RN2048/releases/tag/v1.0.0'>attached</a> in the release page of this repo.
