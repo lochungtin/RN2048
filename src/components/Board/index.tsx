@@ -14,9 +14,11 @@ import { updateGame, updateHistory, updateRecords, } from '../../redux/action';
 import { keygen } from '../../utils/keygen';
 import { Direction } from '../../utils/enums';
 import { ColorSchemeType, GameConfig, RecordType, } from '../../utils/types';
+import { compare } from '../../utils/array';
 
 interface ReduxProps {
     colortheme: ColorSchemeType,
+    history: GameConfig,
     game: GameConfig,
     records: Array<RecordType>,
 }
@@ -57,7 +59,8 @@ class BoardView extends React.Component<ReduxProps> {
         let temp = { ...this.props.game };
 
         // update history
-        store.dispatch(updateHistory({ ...temp }));
+        if (!compare(this.props.history.board, temp.board))
+            store.dispatch(updateHistory({ ...temp }));
 
         // perform swipe
         Board.swipe(temp, direction);
@@ -109,6 +112,7 @@ class BoardView extends React.Component<ReduxProps> {
 const mapStateToProps = state => ({
     colortheme: state.colortheme,
     game: state.game,
+    history: state.history,
     records: state.records,
 });
 
