@@ -1,4 +1,4 @@
-import { cascade } from "../utils/array";
+import { cascade, compare } from "../utils/array";
 import { Direction } from "../utils/enums";
 import { CoordinatePair } from "../utils/types";
 
@@ -25,9 +25,12 @@ export default class Board {
 
     static swipe = (board: Board, direction: Direction): void => {
         let temp = cascade(board.board, direction);
+
+        if (!compare(board.board, temp.board))
+            Board.newTile(board);
+        
         board.board = temp.board;
         board.score += temp.score;
-        Board.newTile(board);
     }
 
     static validate = (board: Board): boolean => {
