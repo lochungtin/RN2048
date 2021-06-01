@@ -33,7 +33,7 @@ Below are some screenshots of the app (Android)
 
 |       Game Screen (Dark)        |       Game Screen (Light)        |         Gameover Popup Screen         |            Record Screen            |
 | :-----------------------------: | :------------------------------: | :-----------------------------------: | :---------------------------------: |
-| <img src='./img/game_dark.jpg' width='800'> | <img src='./img/game_light.jpg' width='800'> | <img src='./img/gameover_screen.jpg' width='800'> | <img src='./img/record_screen.jpg' width='800'> |
+| <img src='./img/game_dark.jpg' width='400'> | <img src='./img/game_light.jpg' width='400'> | <img src='./img/gameover_screen.jpg' width='400'> | <img src='./img/record_screen.jpg' width='400'> |
 
 
 ## Maintenance and Future Updates
