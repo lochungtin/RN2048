@@ -10,15 +10,15 @@ import { BoardStyles } from './styles';
 
 import Board from '../../game/board';
 import { store } from '../../redux/store';
-import { updateGame, updateHistory, updateRecords, } from '../../redux/action';
+import { clearHistory, updateGame, updateHistory, updateRecords, } from '../../redux/action';
+import { compare } from '../../utils/array';
 import { keygen } from '../../utils/keygen';
 import { Direction } from '../../utils/enums';
-import { ColorSchemeType, GameConfig, RecordType, } from '../../utils/types';
-import { compare } from '../../utils/array';
+import { ColorSchemeType, GameConfig, HistoryType, RecordType, } from '../../utils/types';
 
 interface ReduxProps {
     colortheme: ColorSchemeType,
-    history: GameConfig,
+    history: HistoryType,
     game: GameConfig,
     records: Array<RecordType>,
 }
@@ -41,7 +41,7 @@ class BoardView extends React.Component<ReduxProps> {
 
     onNewGame = () => {
         store.dispatch(updateGame({ ...new Board(4) }));
-        store.dispatch(updateHistory(null));
+        store.dispatch(clearHistory());
         this.setState({ open: false });
     }
 
@@ -51,25 +51,27 @@ class BoardView extends React.Component<ReduxProps> {
 
         store.dispatch(updateRecords(records));
         store.dispatch(updateGame({ ...new Board(4) }));
-        store.dispatch(updateHistory(null));
+        store.dispatch(clearHistory());
         this.setState({ open: false });
     }
 
     swipe = (direction: Direction): void => {
-        let temp = { ...this.props.game };
-
-        // update history
-        store.dispatch(updateHistory({ ...temp }));
+        let temp: GameConfig = { ...this.props.game };
+        let newFrame: GameConfig = { ...this.props.game };
 
         // perform swipe
-        Board.swipe(temp, direction);
+        Board.swipe(newFrame, direction);
 
         // validate board
-        if (!Board.validate(temp))
+        if (!Board.validate(newFrame))
             this.setState({ open: true });
 
         // save game config
-        store.dispatch(updateGame(temp));
+        store.dispatch(updateGame(newFrame));
+
+        // update history
+        if (!this.props.history.prev || !compare(temp.board, newFrame.board))
+            store.dispatch(updateHistory({ curr: newFrame, prev: temp }));
     }
 
     render() {

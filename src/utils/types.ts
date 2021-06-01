@@ -52,3 +52,9 @@ export interface RecordType {
     highestTile: number,
     score: number,
 }
+
+// history types
+export interface HistoryType {
+    curr: GameConfig,
+    prev: GameConfig,
+}

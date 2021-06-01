@@ -1,11 +1,16 @@
-import { ActionType, ColorSchemeType, GameConfig, RecordType, } from '../utils/types';
+import { ActionType, ColorSchemeType, GameConfig, HistoryType, RecordType, } from '../utils/types';
 
 export enum ActionName {
+    CLEAR_HISTORY,
     SAVE_COLOR_CONFIG,
     SAVE_GAME_STATE,
     SAVE_HISTORY,
     SAVE_RECORDS,
 }
+
+export const clearHistory = (): ActionType => ({
+    type: ActionName.CLEAR_HISTORY,
+});
 
 export const updateColors = (payload: ColorSchemeType): ActionType => ({
     type: ActionName.SAVE_COLOR_CONFIG,
@@ -17,7 +22,7 @@ export const updateGame = (payload: GameConfig): ActionType => ({
     payload,
 });
 
-export const updateHistory = (payload: GameConfig): ActionType => ({
+export const updateHistory = (payload: HistoryType): ActionType => ({
     type: ActionName.SAVE_HISTORY,
     payload,
 });

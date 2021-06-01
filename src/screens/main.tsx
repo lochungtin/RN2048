@@ -10,9 +10,9 @@ import { darktheme, lighttheme, } from '../data/color';
 import { MainStyles, ScreenStyles, } from './styles';
 
 import Board from '../game/board';
-import { updateColors, updateGame, updateHistory, } from '../redux/action';
+import { clearHistory, updateColors, updateGame, updateHistory, } from '../redux/action';
 import { store } from '../redux/store';
-import { ColorSchemeType, GameConfig, RecordType, } from '../utils/types';
+import { ColorSchemeType, GameConfig, HistoryType, RecordType, } from '../utils/types';
 
 interface NavProps {
     navigation: StackNavigationProp<any, any>,
@@ -21,30 +21,23 @@ interface NavProps {
 interface ReduxProps {
     colortheme: ColorSchemeType,
     game: GameConfig,
-    history: GameConfig,
+    history: HistoryType,
     records: Array<RecordType>,
 }
 
 class Screen extends React.Component<NavProps & ReduxProps> {
-
-    constructor(props) {
-        super(props);
-
-        if (props.game === null)
-            store.dispatch(updateGame({ ...new Board(4) }));
-    }
-
     back = () => {
         if (this.props.history !== null) {
-            let curGame = { ...this.props.game };
-            store.dispatch(updateGame(this.props.history));
-            store.dispatch(updateHistory(curGame));
+            let curr = { ...this.props.game };
+            let prev = { ...this.props.history.prev };
+            store.dispatch(updateGame(prev));
+            store.dispatch(updateHistory({ curr: prev, prev: curr, }));
         }
     }
 
     newGame = () => {
         store.dispatch(updateGame({ ...new Board(4) }));
-        store.dispatch(updateHistory(null));
+        store.dispatch(clearHistory());
     }
 
     toggleTheme = () => store.dispatch(updateColors(this.props.colortheme.name === 'dark' ? lighttheme : darktheme));
