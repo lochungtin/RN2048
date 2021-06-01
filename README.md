@@ -1,3 +1,5 @@
+<img src='./img/logo.png' width='150'>
+
 # RN2048
 
 ## Background
