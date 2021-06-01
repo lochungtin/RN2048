@@ -10,7 +10,7 @@ This project took all 4 days, or effectively, 20 or so hours to complete. Days 1
 
 ## Technical Details
 
-Ths app consists of 2 pages, the main game page and a record page which displays all the games the user decides to save.
+This app consists of 2 pages, the main game page and a record page which displays all the games the user decides to save.
 
 Due to time concerns, animated movement for the tile on the grid have not been implemented. But this could be done with react-native-reanimated or other similar packages.
 
