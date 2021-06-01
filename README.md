@@ -10,9 +10,13 @@ This project took all 4 days, or effectively, 20 or so hours to complete. Days 1
 
 ## Technical Details
 
-This app consists of 2 pages, the main game page and a record page which displays all the games the user decides to save.
+This app consists of 2 pages, the main game page and a record page which displays all the game records the user decides to save.
 
 Due to time concerns, animated movement for the tile on the grid have not been implemented. But this could be done with react-native-reanimated or other similar packages.
+
+A back system has been implemented but it is coded to only be able to reverse one move. A undo stack is not desirable in this use case for the sake of the difficulty of the game.
+
+The app is originally set to dark mode, but a light mode option is also available.
 
 ### Libraries Used
 
