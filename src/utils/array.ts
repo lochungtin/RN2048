@@ -71,13 +71,11 @@ export const cascade = (arr: Array<Array<number>>, direction: Direction): GameCo
 
 export const compare = (board1: Array<Array<number>>, board2: Array<Array<number>>): boolean => {
     // assuming they are of same dimensions
-
     for (let i = 0; i < board1.length; ++i) {
         for (let j = 0; j < board1[i].length; ++j) {
             if (board1[i][j] !== board2[i][j])
                 return false;
         }
     }
-
     return true;
 }
