@@ -59,8 +59,7 @@ class BoardView extends React.Component<ReduxProps> {
         let temp = { ...this.props.game };
 
         // update history
-        if (!compare(this.props.history.board, temp.board))
-            store.dispatch(updateHistory({ ...temp }));
+        store.dispatch(updateHistory({ ...temp }));
 
         // perform swipe
         Board.swipe(temp, direction);

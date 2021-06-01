@@ -25,12 +25,13 @@ export default class Board {
 
     static swipe = (board: Board, direction: Direction): void => {
         let temp = cascade(board.board, direction);
+        let moved: boolean = !compare(board.board, temp.board);
 
-        if (!compare(board.board, temp.board))
-            Board.newTile(board);
-        
         board.board = temp.board;
         board.score += temp.score;
+        
+        if (moved)
+            Board.newTile(board);
     }
 
     static validate = (board: Board): boolean => {
@@ -72,7 +73,7 @@ export default class Board {
     private static isValidIndex = (board: Board, pair: Array<number>): boolean =>
         pair[0] >= 0 && pair[1] >= 0 && pair[0] < board.dim && pair[1] < board.dim;
 
-    private static newTile = (board: Board): void => { 
+    private static newTile = (board: Board): void => {
         let empty: Array<number> = Board.getAvailable(board);
         if (empty.length === 0)
             return;
