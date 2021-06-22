@@ -8,6 +8,14 @@ In the evening of the 25th May, 2021, I decided to task myself with a 4-day week
 
 This project took all 4 days, or effectively, 20 or so hours to complete. Days 1 and 2 were spent developing the game's main algorithm, day 3 was spent debugging and refining the code, and the final day was used to style, refactor, document, and release everything.
 
+## Gallery
+
+Below are some screenshots of the app (Android)
+
+|       Game Screen (Dark)        |       Game Screen (Light)        |         Gameover Popup Screen         |            Record Screen            |
+| :-----------------------------: | :------------------------------: | :-----------------------------------: | :---------------------------------: |
+| <img src='./img/game_dark.jpg'> | <img src='./img/game_light.jpg'> | <img src='./img/gameover_screen.jpg'> | <img src='./img/record_screen.jpg'> |
+
 ## Technical Details
 
 This app consists of 2 pages, the main game page and a record page which displays all the game records the user decides to save.
@@ -30,15 +38,6 @@ Below is a list of all the node packages used for the project (React Native base
     - react-redux
     - redux-persist
         - react-native-async-storage
-
-## Gallery
-
-Below are some screenshots of the app (Android)
-
-|       Game Screen (Dark)        |       Game Screen (Light)        |         Gameover Popup Screen         |            Record Screen            |
-| :-----------------------------: | :------------------------------: | :-----------------------------------: | :---------------------------------: |
-| <img src='./img/game_dark.jpg'> | <img src='./img/game_light.jpg'> | <img src='./img/gameover_screen.jpg'> | <img src='./img/record_screen.jpg'> |
-
 
 ## Maintenance and Future Updates
 
