@@ -63,7 +63,7 @@ export const cascade = (arr: Array<Array<number>>, direction: Direction): GameCo
         let game = cascadeHorizontal( rotate(arr, (direction === Direction.down ? 1 : 0)), Direction.right);
         return {
             board: rotate(game.board, (direction === Direction.up ? 1 : 0)),
-            dim: game.score,
+            dim: game.dim,
             score: game.score,
         };
     }
